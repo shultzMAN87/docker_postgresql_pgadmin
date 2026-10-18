@@ -15,6 +15,8 @@
 ├── .env                    # логины, пароли, порты, часовой пояс
 ├── initdb/
 │   └── 01-extensions.sql   # выполняется один раз при инициализации БД
+├── labs/
+│   └── gist/               # практикум по GiST-индексам
 └── pgadmin/
     └── servers.json        # преднастроенное подключение к серверу
 ```
@@ -118,6 +120,16 @@ SELECT pg_reload_conf();
 ```
 
 Параметры вроде `shared_buffers` и `max_connections` применяются только после перезапуска: `docker compose restart postgres`.
+
+## Практикум по GiST
+
+В папке [`labs/gist`](labs/gist/README.md) — семь практических заданий по устройству GiST-индексов: поиск в области, KNN, страницы индекса через `pageinspect`, способы построения, деградация, ограничения исключения и триграммы. К заданиям есть ответы.
+
+Папка `labs/` смонтирована в контейнер как `/labs`:
+
+```bash
+docker exec -it postgres psql -U postgres -d appdb -P pager=off -f /labs/gist/00_setup.sql
+```
 
 ## Управление
 

@@ -19,6 +19,8 @@ services:
       - pgdata:/var/lib/postgresql
       # Скрипты *.sql / *.sh отсюда выполняются один раз при первой инициализации
       - ./initdb:/docker-entrypoint-initdb.d:ro
+      # Учебные скрипты: запуск через docker exec ... psql -f /labs/...
+      - ./labs:/labs:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 5s
